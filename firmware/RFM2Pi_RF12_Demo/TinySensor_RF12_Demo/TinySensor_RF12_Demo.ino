@@ -61,7 +61,7 @@ static byte value, stack[20], top, sendLen, dest, quiet;
 static byte testbuf[20], testCounter;
 
 
-#define RF12_DATA_RATE RF12_DATA_RATE_1
+#define RF12_DATA_RATE RF12_DATA_RATE_2
 
 static void saveConfig () {
     // save to EEPROM
