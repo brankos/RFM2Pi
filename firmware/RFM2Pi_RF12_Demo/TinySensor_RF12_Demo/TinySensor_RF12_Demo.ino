@@ -61,6 +61,8 @@ static byte value, stack[20], top, sendLen, dest, quiet;
 static byte testbuf[20], testCounter;
 
 
+#define RF12_DATA_RATE RF12_DATA_RATE_1
+
 static void saveConfig () {
     // save to EEPROM
 
@@ -84,10 +86,12 @@ static void saveConfig () {
     if (!rf12_config())
         showString(PSTR("config failed"));
 
+    rf12_control(RF12_DATA_RATE);
+
 }
 
 
-char helpText1[] PROGMEM = 
+const char helpText1[] PROGMEM = 
     "\n"
     "Available commands:" "\n"
     "  123 x      - Toggle configuration change protection, 1=Unlocked" "\n"
@@ -152,6 +156,8 @@ static void showHelp () {
     mySerial.println(config.lock, DEC);
 
     rf12_config();
+
+    rf12_control(RF12_DATA_RATE);
 }
 
 static void handleInput (char c) {
@@ -247,6 +253,8 @@ void setup() {
         saveConfig();
     }
 
+    rf12_control(RF12_DATA_RATE);
+
     showHelp();
     delay(2000);
 
@@ -304,3 +312,4 @@ void loop() {
         activityLed(0);
     }
 }
+
